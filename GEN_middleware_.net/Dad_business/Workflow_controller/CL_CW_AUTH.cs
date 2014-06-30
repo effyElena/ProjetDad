@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.Workflow_controller
 {
-    class CL_CW_AUTH
+    class CL_CW_Auth
     {
     }
 }

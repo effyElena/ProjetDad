@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.Mapping
 {
-    class CL_EM_USER
+    class CL_EM_User
     {
     }
 }

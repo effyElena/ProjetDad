@@ -41,9 +41,9 @@
   <ItemGroup>
     <Compile Include="Job_component\CL_CM_Auth.cs" />
     <Compile Include="Mapping\CL_CAD.cs" />
-    <Compile Include="Mapping\CL_EM_USER.cs" />
+    <Compile Include="Mapping\CL_EM_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Workflow_controller\CL_CW_AUTH.cs" />
+    <Compile Include="Workflow_controller\CL_CW_Auth.cs" />
     <Compile Include="Workflow_controller\I_CW.cs" />
   </ItemGroup>
   <ItemGroup />
