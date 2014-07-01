@@ -53,19 +53,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Business\CUP\CL_CUP_Files.cs" />
+    <Compile Include="Business\CUP\CL_CUP_Identity.cs" />
+    <Compile Include="View\CU\CU_Files.xaml.cs">
+      <DependentUpon>CU_Files.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Extend_service\CL_CUC.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="Extend_service\CUC\CL_CUC.cs" />
+    <Compile Include="View\CU\CU_Identify.xaml.cs">
+      <DependentUpon>CU_Identify.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CU\CU_SecretInformations.xaml.cs">
+      <DependentUpon>CU_SecretInformations.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\CU\CU_Files.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CU\CU_Identify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CU\CU_SecretInformations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,8 +110,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Business\" />
-    <Folder Include="View\" />
+    <Folder Include="Business\CUT\" />
+    <Folder Include="Business\SERVU\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
