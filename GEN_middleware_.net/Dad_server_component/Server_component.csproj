@@ -7,11 +7,11 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0D9600FB-1AE9-422D-B76A-776B3EA5C79D}</ProjectGuid>
+    <ProjectGuid>{89820BD3-22BA-4281-A93C-BC9553043480}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Server_component</RootNamespace>
+    <RootNamespace>Dad_server_component</RootNamespace>
     <AssemblyName>Dad_server_component</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
@@ -63,12 +63,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Server_component\I_SERVC.cs" />
     <Compile Include="Server_component\CL_SERVC.svc.cs">
       <DependentUpon>CL_SERVC.svc</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server_component\CL_SERVM_Auth.cs" />
+    <Compile Include="Server_component\I_SERVC.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -80,6 +80,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dad_access_component_business\Access_component_business.csproj">
+      <Project>{60eddf5d-1f70-49fe-b8d0-5cc1c74b080b}</Project>
+      <Name>Access_component_business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dad_business\Business.csproj">
+      <Project>{50495cf4-ea8c-440d-9ef0-8a6a7dad6034}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -94,7 +104,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>62953</DevelopmentServerPort>
+          <DevelopmentServerPort>5556</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:62953/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
