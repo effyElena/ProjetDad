@@ -24,8 +24,8 @@ namespace GEN_client.View.CU
         {
             InitializeComponent();
             this.fichierdetails = fichier;
-            this.titleFile.Content = this.fichierdetails.nameFile.SafeFileName;
-            this.nameFile.Content = this.fichierdetails.nameFile.SafeFileName;
+            this.titleFile.Content = this.fichierdetails.nameFile;
+            this.nameFile.Content = this.fichierdetails.nameFile;
             this.code.Content = this.fichierdetails.key;
             this.secretInfo.Content = this.fichierdetails.email;
        

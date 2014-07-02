@@ -38,61 +38,63 @@ namespace GEN_client.View.CU
         {
             InitializeComponent();
             listView.ItemsSource = list;
+
+
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new OpenFileDialog();
-
+            dlg.Multiselect = true;
+            dlg.DefaultExt = "txt";
+            dlg.Filter = " Text files (*.txt)|*.txt";
             //Open the Pop-Up Window to select the file 
             if (dlg.ShowDialog() == true)
             {
-                new FileInfo(dlg.FileName);
-                using (Stream s = dlg.OpenFile())
+                foreach (string dlf in dlg.FileNames)
                 {
-                  /*  TextReader reader = new StreamReader(s);
-                    string st = reader.ReadToEnd();
-                    Button b = new Button();
-                    b.Content = "";*/
-                    
-                    string waiting = "En cours";
-                    string wainting2 = "Traitement non résolu";
-                    string waiting3 = " Traitement résolu";
-                    string wait ="";
-
-                    if (waiting3 == " Traitement résolu")
+                    new FileInfo(dlf);
+                    using (Stream s = dlg.OpenFile())
                     {
-                        wait = " Traitement résolu";
+
+                        string waiting = "En cours";
+                        string wainting2 = "Traitement non résolu";
+                        string waiting3 = " Traitement résolu";
+                        string wait = "";
+
+                        if (waiting3 == " Traitement résolu")
+                        {
+                            wait = " Traitement résolu";
+                        }
+
+                        string img = "C:/Users/agathe/Desktop/load.png";
+
+                        string path = "informations.xaml";
+                        CheckBox check = new CheckBox();
+                        Debug.Write(dlf);
+                        listFile.Add(new fichierDetail
+                        {
+                            
+                            nameFile = dlf,
+                            pdfFile = wait,
+                            img = img,
+                            key = "toto",
+                            email = "terroriste@viacesi.fr",
+                            path = path,
+
+
+                        });
+
+                        space.Text = dlf;
+                        string copy = System.IO.File.ReadAllText(dlf);
+                        this.file = copy;
+
                     }
-                    
-                    string img = "C:/Users/agathe/Desktop/load.png";
-                    
-                    string path = "informations.xaml";
-
-                    listFile.Add(new fichierDetail
-                    {
-
-                        nameFile = dlg,
-                        pdfFile = wait,
-                        img = img , 
-                        key = "toto", 
-                        email = "terroriste@viacesi.fr",
-                        path = path
-                       
-                    });
-                    
-                    space.Text = dlg.FileName;
-                    string copy = System.IO.File.ReadAllText(dlg.FileName);
-                    this.file = copy;
-
                 }
+
             }
         }
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
-            e.Handled = true;
-        }
+
 
         private void buttonSend_Click(object sender, RoutedEventArgs e)
         {
@@ -119,22 +121,38 @@ namespace GEN_client.View.CU
 
         }
 
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+
+        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Label testLink = (Label)sender;
+            buttonDetail.Visibility = Visibility.Visible;
 
-            testLink.Focus();
+        
+        }
+        
+        private void buttonDelete_Click(object sender, RoutedEventArgs e)
+        {
 
+
+            listFile.RemoveAt(listView.SelectedIndex);
+    
+        }
+
+        private void buttonDeleteAll_Click(object sender, RoutedEventArgs e)
+        {
+            listFile.Clear();
+            
+        }
+
+
+        private void buttonDetail_Click(object sender, RoutedEventArgs e)
+        {
             CU_SecretInformations window = new CU_SecretInformations(this.listFile[listView.SelectedIndex]);
 
             window.ShowDialog();
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-          //  window.Focus();
-        }
+
 
     }
 
@@ -144,12 +162,14 @@ namespace GEN_client.View.CU
     {
         public string img { get; set; }
         public bool finish { get; set; }
-        public OpenFileDialog nameFile { get; set; }
+        public string nameFile { get; set; }
         public string key { get; set; }
         public string pdfFile { get; set; }
         public string email { get; set; }
         public string path { get; set; }
         public ListViewItem FocusedItem { get; set; }
+        
+
     }
 
 

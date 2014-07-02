@@ -55,6 +55,7 @@
     </ApplicationDefinition>
     <Compile Include="Business\CUP\CL_CUP_Files.cs" />
     <Compile Include="Business\CUP\CL_CUP_Identity.cs" />
+    <Compile Include="Business\CUP\CL_CUP_SecretInformations.cs" />
     <Compile Include="View\CU\CU_Files.xaml.cs">
       <DependentUpon>CU_Files.xaml</DependentUpon>
     </Compile>

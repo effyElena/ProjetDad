@@ -27,17 +27,22 @@
 
         <!-- Body -->
         <Canvas Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
+
+
+
             <TextBox Height="26" HorizontalAlignment="Left" Name="space"
                VerticalAlignment="Top" Width="0" Canvas.Left="10" Canvas.Top="10"  IsReadOnly="True"  />
 
             <Label Name="error"  HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="167" Foreground="#FFEC1717" Width="562" Canvas.Left="10" Visibility="Visible"/>
-           
-            <Button x:Name="buttonAdd" Content="Parcourir" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonAdd_Click" Canvas.Left="401" Canvas.Top="206" />
-            <Button x:Name="buttonSend" Content="Envoyer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonSend_Click" Canvas.Left="496" Canvas.Top="206" />
-
-            <ListView Height="157" Name="listView" Canvas.Left="16" Canvas.Top="10" Width="556" SelectionChanged="listView_SelectionChanged" >
+            <Button x:Name="buttonDetail" Content="Detail"  Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Click="buttonDetail_Click" Canvas.Left="67" Canvas.Top="196" Visibility="Hidden"/>
+            <Button x:Name="buttonAdd" Content="Parcourir" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonAdd_Click" Canvas.Left="161" Canvas.Top="196" />
+            <Button x:Name="buttonSend" Content="Envoyer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonSend_Click" Canvas.Left="256" Canvas.Top="196" />
+            <Button x:Name="buttonDeleteAll" Content="Tout Supprimer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Click="buttonDeleteAll_Click" Canvas.Left="466" Canvas.Top="196" />
+            <Button x:Name="buttonDelete" Content=" Supprimer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Click="buttonDelete_Click" Canvas.Left="357" Canvas.Top="196" />
+            <ListView Height="157" Name="listView" Canvas.Left="10" Canvas.Top="10" Width="577"  SelectionChanged="listView_SelectionChanged"  >
                 <ListView.View>
                     <GridView >
+
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -45,19 +50,12 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn  Header="Nom du fichier" DisplayMemberBinding="{Binding nameFile.SafeFileName}" />
+                       
+                        <GridViewColumn  Header="Nom du fichier" DisplayMemberBinding="{Binding nameFile}" />
                         <GridViewColumn  Header="Etat"  DisplayMemberBinding="{Binding pdfFile}"/>
                         <GridViewColumn  Header="Clé de déchiffrage"  DisplayMemberBinding="{Binding key}"/>
                         <GridViewColumn  Header="Email"  DisplayMemberBinding="{Binding email}"/>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Label  MouseDown="Hyperlink_Click"   Background="Transparent" Foreground="#FF2A52DA">
-                                        <Underline>Détail</Underline>
-                                    </Label>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                        
                         
                     </GridView>
 
