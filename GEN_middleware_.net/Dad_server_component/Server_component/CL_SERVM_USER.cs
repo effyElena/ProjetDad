@@ -3,22 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Business.ServiceReference1;
 
 namespace Dad_server_component.Server_component
 {
-    public class CL_SERVM_Auth
+    public class CL_SERVM_USER
     {
         private CL_CAM cam;
 
-        public CL_SERVM_Auth()
+        public CL_SERVM_USER()
         {
             cam = new CL_CAM();
         }
 
-        public Business.ServiceReference1.STG auth(Business.ServiceReference1.STG msg)
+        public STG login(STG msg)
         {
-            return cam.redirection(msg);
+           return cam.redirection(msg);
         }
     }
 }

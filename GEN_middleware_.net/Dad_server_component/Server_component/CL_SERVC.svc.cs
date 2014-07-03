@@ -36,11 +36,16 @@ namespace Dad_server_component.Server_component
             {
                 switch (this.msg.operationName)
                 {
-                    case "authenticate":
-                        // this.msg = 
+                    case "login":
+                        CL_SERVM_USER servmUser = new CL_SERVM_USER();
+                        this.msg = servmUser.login(this.msg);
                         break;
                     case "decrypt":
-                        //
+                        CL_SERVM_FILE servmFile = new CL_SERVM_FILE();
+                        this.msg = servmFile.decrypt(this.msg);
+                        break;
+                    default:
+                        this.msg.statut_op = false;
                         break;
                 }
             }
@@ -51,5 +56,6 @@ namespace Dad_server_component.Server_component
 
             return this.msg;
         }
+
     }
 }

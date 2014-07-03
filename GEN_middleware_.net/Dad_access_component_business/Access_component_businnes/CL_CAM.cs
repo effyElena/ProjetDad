@@ -1,5 +1,7 @@
-﻿using Business.ServiceReference1;
-using Business.Workflow_controller;
+﻿using Business.Workflow_controller;
+using Business.Workflow_controller.File;
+using Business.Workflow_controller.User;
+using Dad_server_component.Server_component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +18,17 @@ namespace Access_component_business
         public STG redirection(STG msg)
         {
             this.msg = msg;
-            objetCW = null;
+            this.objetCW = null;
 
             if (msg.tokenUser == null)
             {
                 switch (msg.operationName)
                 {
-                    case "authenticate":
-                        objetCW = new CL_CW_Auth();
+                    case "login":
+                        this.objetCW = new CL_CW_Auth();
+                        break;
+                    default:
+                        this.msg.statut_op = false;
                         break;
                 }
             }
@@ -36,7 +41,7 @@ namespace Access_component_business
                 this.instantUser(msg);
             }
 
-            this.msg = objetCW.exec(msg);
+            this.msg = this.objetCW.exec(msg);
 
             return this.msg;
         }
@@ -45,7 +50,12 @@ namespace Access_component_business
         {
             switch (msg.operationName)
             {
-                
+                case "decrypt":
+                    this.objetCW = new CL_CW_Decrypt();
+                    break;
+                default:
+                    this.msg.statut_op = false;
+                    break;
             }
         }
 

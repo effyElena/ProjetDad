@@ -1,4 +1,4 @@
-﻿using Business.ServiceReference1;
+﻿using Dad_server_component.Server_component;
 using System;
 using System.Collections.Generic;
 using System.Linq;
