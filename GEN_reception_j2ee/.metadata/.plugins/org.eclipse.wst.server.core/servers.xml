@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<servers>
+  <server auto-publish-setting="1" auto-publish-time="0" hostname="VM-TRAITEMENT" id="GlassFish 4.0 at VM-TRAITEMENT" name="GlassFish 4.0 at VM-TRAITEMENT" runtime-id="GlassFish 4.0" server-type="org.glassfish.jst.server.glassfish4" server-type-id="org.glassfish.jst.server.glassfish4" start-timeout="240" stop-timeout="240" timestamp="0">
+    <map key="generic_server_instance_properties" sunappserver.adminname="admin" sunappserver.adminpassword="azerty" sunappserver.adminserverportnumber="4848" sunappserver.keepSessions="true" sunappserver.serverportnumber="8080"/>
+  </server>
+  <server auto-publish-setting="1" auto-publish-time="0" hostname="VM-RECEPTION" id="GlassFish 4.0 at VM-RECEPTION" name="GlassFish 4.0 at VM-RECEPTION" runtime-id="GlassFish 4.0" server-type="org.glassfish.jst.server.glassfish4" server-type-id="org.glassfish.jst.server.glassfish4" start-timeout="240" stop-timeout="240" timestamp="3">
+    <map key="generic_server_instance_properties" sunappserver.adminname="admin" sunappserver.adminpassword="azerty" sunappserver.adminserverportnumber="4848" sunappserver.keepSessions="true" sunappserver.serverportnumber="8080"/>
+    <list key="modules" value0="reception_ear::org.eclipse.jst.jee.server:reception_ear::jst.ear::7.0"/>
+    <list key="Generic_Server_Modules_List" value0="org.eclipse.jst.jee.server:reception_ear"/>
+  </server>
+</servers>

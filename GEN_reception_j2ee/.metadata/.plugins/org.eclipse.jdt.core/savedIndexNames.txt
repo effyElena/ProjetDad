@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+C:\Users\Alex\Desktop\exia\Projet\DAD\ProjetDad\GEN_reception_j2ee\.metadata\.plugins\org.eclipse.jdt.core
+674566448.index
