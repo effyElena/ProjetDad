@@ -25,7 +25,7 @@ namespace Access_component_business
                 switch (msg.operationName)
                 {
                     case "login":
-                        this.objetCW = new CL_CW_Auth();
+                        this.objetCW = new CL_CW_Login();
                         break;
                     default:
                         this.msg.statut_op = false;
@@ -51,7 +51,13 @@ namespace Access_component_business
             switch (msg.operationName)
             {
                 case "decrypt":
-                    this.objetCW = new CL_CW_Decrypt();
+                    this.objetCW = new CL_CW_StopDecrypt();
+                    break;
+                case "stopDecrypt":
+                    this.objetCW = new CL_CW_StopDecrypt();
+                    break;
+                case "histoFile":
+                    this.objetCW = new CL_CW_HistoFile();
                     break;
                 default:
                     this.msg.statut_op = false;

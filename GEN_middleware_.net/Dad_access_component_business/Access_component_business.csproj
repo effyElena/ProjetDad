@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dad_server_component">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\IIS Express\GEN\bin\Dad_server_component.dll</HintPath>
+      <HintPath>..\Dad_server_component\obj\Release\Dad_server_component.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

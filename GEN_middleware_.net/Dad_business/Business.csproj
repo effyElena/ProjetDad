@@ -17,9 +17,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;Debug</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dad_server_component">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\IIS Express\GEN\bin\Dad_server_component.dll</HintPath>
+      <HintPath>..\Dad_server_component\obj\Release\Dad_server_component.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -44,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Job_component\CL_CM_Auth.cs" />
+    <Compile Include="Job_component\CL_CM_User.cs" />
     <Compile Include="Mapping\CL_CAD.cs" />
     <Compile Include="Mapping\CL_EM_User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,15 +54,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Workflow_controller\User\CL_CW_Auth.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Workflow_controller\File\CL_CW_StopDecrypt.cs" />
+    <Compile Include="Workflow_controller\User\CL_CW_Login.cs" />
     <Compile Include="Workflow_controller\File\CL_CW_Decrypt.cs" />
     <Compile Include="Workflow_controller\I_CW.cs" />
+    <Compile Include="Workflow_controller\User\CL_CW_HistoFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -59,5 +59,23 @@ namespace Business.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à ProjetDad.
+        /// </summary>
+        internal static string NAMEBDD {
+            get {
+                return ResourceManager.GetString("NAMEBDD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à VM-BDD.
+        /// </summary>
+        internal static string SERVEURBDD {
+            get {
+                return ResourceManager.GetString("SERVEURBDD", resourceCulture);
+            }
+        }
     }
 }

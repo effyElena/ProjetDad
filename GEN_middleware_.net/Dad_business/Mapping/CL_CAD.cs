@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,6 @@ namespace Business.Mapping
         }
 
         private SqlConnection m_cnn;
-        private SqlDataReader return1;
         private string bddServer;
         private string bddBase;
         private string bddLogin;
@@ -25,12 +25,10 @@ namespace Business.Mapping
 
         public CL_CAD()
         {
-            //this.bddServer = 
-            //this.bddBase = 
-
-
-            //this.bddLogin = 
-            //this.bddMdp = 
+            this.bddServer = "10.33.126.116";
+            this.bddBase = "ProjetDAD";
+            this.bddLogin = "root";
+            this.bddMdp = "azerty";
 
 
             this.m_connectionString = "Data Source=" + this.bddServer + ";Initial Catalog=" + this.bddBase + ";User ID=" + this.bddLogin + ";Password=" + this.bddMdp;
@@ -84,6 +82,33 @@ namespace Business.Mapping
                Debug.WriteLine("state of the connection is null");
 #endif
             }
+        }
+        
+        public object[][] executeSql(string sql)
+        {
+            this.connection();
+            SqlCommand sqlCommand = new SqlCommand(sql, this.m_cnn );
+           // SqlDataReader reader = sqlCommand.ExecuteReader();
+            object[][] data = new object[100][];
+
+            using (IDataReader reader = sqlCommand.ExecuteReader())
+            {
+                int j = 0;
+                while (reader.Read())
+                {
+                    data[j] = new object[100];
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        data[j][i] = reader.GetValue(i);
+
+                    }
+                    j++;
+
+                }
+            }
+            
+            this.deconnection();
+            return data;
         }
 
         public void executeProcedure(SqlCommand commande)
