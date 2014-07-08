@@ -23,11 +23,11 @@ namespace Dad_server_component.Server_component
             return del(msg);
         }
 
-        private STG decrypt(STG msg)
+        public STG decrypt(STG msg)
         {
            return cam.redirection(msg);
         }
-        private STG stopDecrypt(STG msg)
+        public STG stopDecrypt(STG msg)
         {
             return cam.redirection(msg);
         }

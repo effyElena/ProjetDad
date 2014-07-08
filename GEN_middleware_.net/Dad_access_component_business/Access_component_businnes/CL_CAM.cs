@@ -51,7 +51,7 @@ namespace Access_component_business
             switch (msg.operationName)
             {
                 case "decrypt":
-                    this.objetCW = new CL_CW_StopDecrypt();
+                    this.objetCW = new CL_CW_Decrypt();
                     break;
                 case "stopDecrypt":
                     this.objetCW = new CL_CW_StopDecrypt();

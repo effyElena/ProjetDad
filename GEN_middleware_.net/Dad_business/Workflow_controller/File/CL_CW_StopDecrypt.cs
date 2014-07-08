@@ -17,7 +17,7 @@ namespace Business.Workflow_controller.File
             //this.msg.data[0];
 
 
-
+            this.msg.statut_op = true;
             return this.msg;
         }
     }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://reception.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="CL_WS_ReceptionService" targetNamespace="http://reception.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types />
+  <message name="Message">
+    <part name="texte" type="xsd:string" />
+  </message>
+  <message name="MessageResponse">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="MessageJMS">
+    <part name="nom" type="xsd:string" />
+    <part name="message" type="xsd:base64Binary" />
+    <part name="cle" type="xsd:string" />
+  </message>
+  <message name="MessageJMSResponse">
+    <part name="return" type="xsd:string" />
+  </message>
+  <portType name="IWSReception">
+    <operation name="Message">
+      <input wsam:Action="http://reception.com/IWSReception/MessageRequest" message="tns:Message" />
+      <output wsam:Action="http://reception.com/IWSReception/MessageResponse" message="tns:MessageResponse" />
+    </operation>
+    <operation name="MessageJMS" parameterOrder="nom message cle">
+      <input wsam:Action="http://reception.com/IWSReception/MessageJMSRequest" message="tns:MessageJMS" />
+      <output wsam:Action="http://reception.com/IWSReception/MessageJMSResponse" message="tns:MessageJMSResponse" />
+    </operation>
+  </portType>
+  <binding name="CL_WS_ReceptionPortBinding" type="tns:IWSReception">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="Message">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://reception.com/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://reception.com/" />
+      </output>
+    </operation>
+    <operation name="MessageJMS">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" namespace="http://reception.com/" />
+      </input>
+      <output>
+        <soap:body use="literal" namespace="http://reception.com/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="CL_WS_ReceptionService">
+    <port name="CL_WS_ReceptionPort" binding="tns:CL_WS_ReceptionPortBinding">
+      <soap:address location="http://vm-reception:8080/reception_web/reception" />
+    </port>
+  </service>
+</definitions>

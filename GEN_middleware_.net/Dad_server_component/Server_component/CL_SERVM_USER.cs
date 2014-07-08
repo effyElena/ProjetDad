@@ -16,20 +16,22 @@ namespace Dad_server_component.Server_component
         {
             cam = new CL_CAM();
         }
+       
         public STG exec(STG msg)
         {
             MethodInfo methodeInfo = this.GetType().GetMethod(msg.operationName);
             SimpleDelegate del = (SimpleDelegate)Delegate.CreateDelegate(typeof(SimpleDelegate), this, methodeInfo);
             return del(msg);
         }
-        private STG login(STG msg)
-        {
-           return cam.redirection(msg);
-        }
-        private STG histoFile(STG msg)
+        public STG login(STG msg)
         {
             return cam.redirection(msg);
         }
+        public STG histoFile(STG msg)
+        {
+            return cam.redirection(msg);
+        }
+       
 
         
     }

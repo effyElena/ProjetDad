@@ -11,13 +11,7 @@ namespace Business.Mapping
     public class CL_CAD
     {
         string m_connectionString = null;
-
-        public string getConnexionString()
-        {
-            return m_connectionString;
-        }
-
-        private SqlConnection m_cnn;
+        private SqlConnection sqlConnexion;
         private string bddServer;
         private string bddBase;
         private string bddLogin;
@@ -26,10 +20,10 @@ namespace Business.Mapping
         public CL_CAD()
         {
             this.bddServer = "10.33.126.116";
+            //this.bddServer = "192.168.1.78";
             this.bddBase = "ProjetDAD";
             this.bddLogin = "root";
             this.bddMdp = "azerty";
-
 
             this.m_connectionString = "Data Source=" + this.bddServer + ";Initial Catalog=" + this.bddBase + ";User ID=" + this.bddLogin + ";Password=" + this.bddMdp;
         }
@@ -38,12 +32,12 @@ namespace Business.Mapping
         {
             this.m_connectionString = null;
             this.m_connectionString = "Data Source=" + this.bddServer + ";Initial Catalog=" + this.bddBase + ";User ID=" + this.bddLogin + ";Password=" + this.bddMdp;
-            this.m_cnn = new SqlConnection(m_connectionString);
+            this.sqlConnexion = new SqlConnection(m_connectionString);
 
             try
             {
 
-                m_cnn.Open();
+                sqlConnexion.Open();
 #if _debug
                 Debug.WriteLine("Connection established");
 #endif
@@ -58,11 +52,11 @@ namespace Business.Mapping
         }
         private void deconnection()
         {
-            if (m_cnn.State.ToString() == "Open")
+            if (sqlConnexion.State.ToString() == "Open")
             {
                 try
                 {
-                    m_cnn.Close();
+                    sqlConnexion.Close();
 #if _debug
                    Debug.WriteLine("Connection close");
 #endif
@@ -77,7 +71,7 @@ namespace Business.Mapping
             }
             else
             {
-                m_cnn = null;
+                sqlConnexion = null;
 #if _debug
                Debug.WriteLine("state of the connection is null");
 #endif
@@ -87,8 +81,7 @@ namespace Business.Mapping
         public object[][] executeSql(string sql)
         {
             this.connection();
-            SqlCommand sqlCommand = new SqlCommand(sql, this.m_cnn );
-           // SqlDataReader reader = sqlCommand.ExecuteReader();
+            SqlCommand sqlCommand = new SqlCommand(sql, this.sqlConnexion );
             object[][] data = new object[100][];
 
             using (IDataReader reader = sqlCommand.ExecuteReader())
@@ -109,27 +102,6 @@ namespace Business.Mapping
             
             this.deconnection();
             return data;
-        }
-
-        public void executeProcedure(SqlCommand commande)
-        {
-            this.connection();
-            commande.Connection = m_cnn;
-            commande.CommandType = System.Data.CommandType.StoredProcedure;
-            try
-            {
-                commande.ExecuteNonQuery();
-#if _debug
-               Debug.WriteLine("Procedure launched");
-#endif
-            }
-            catch (Exception ex)
-            {
-#if _debug
-               Debug.WriteLine("Error while procedure launch:" + ex);
-#endif
-            }
-            this.deconnection();
         }
 
     }

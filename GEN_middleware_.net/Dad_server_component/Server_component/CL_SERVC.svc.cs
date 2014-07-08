@@ -14,14 +14,16 @@ namespace Dad_server_component.Server_component
     {
         
         private STG msg;
+        private FILE file;
+        private I_SERVM objectServm;
         
         public STG m_service(STG msg)
         {
             this.msg = msg;
             if (this.secu_access_plateForme(this.msg) == true)
             {
-                I_SERVM clServm = (I_SERVM)Activator.CreateInstance(StringToType(this.msg.info));
-                this.msg = clServm.exec(this.msg);
+                this.objectServm = (I_SERVM)Activator.CreateInstance(StringToType(this.msg.info));
+                this.msg = objectServm.exec(this.msg);
                            }
             else
             {
@@ -94,5 +96,11 @@ namespace Dad_server_component.Server_component
         }
 
 
+
+
+        void I_SERVC.file(FILE file)
+        {
+            
+        }
     }
 }

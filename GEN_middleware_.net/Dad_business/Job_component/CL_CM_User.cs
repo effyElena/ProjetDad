@@ -21,7 +21,7 @@ namespace Business.Job_component
                 switch (this.emUser.Type)
                 {
                     case 1:
-                        token =  "XXXXXXXXXXXXXXXXXADMIN";
+                        token = "XXXXXXXXXXXXXXXXXADMIN";
                         break;
                     default:
                         token =  null;

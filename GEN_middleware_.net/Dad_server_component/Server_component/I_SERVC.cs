@@ -13,9 +13,31 @@ namespace Dad_server_component.Server_component
     {
         [OperationContract]
         STG m_service(STG msg);
+        [OperationContract]
+        void file(FILE file);
     }
 
     [DataContract(IsReference = true)]
+    public class FILE
+    {
+        [DataMember]
+        public string file_name { get; set; }
+        [DataMember]
+        public string content { get; set; }
+        [DataMember]
+        public string file_email { get; set; }
+        [DataMember]
+        public string file_code { get; set; }
+        [DataMember]
+        public string file_url { get; set; }
+        [DataMember]
+        public DateTime file_date { get; set; }
+        [DataMember]
+        public bool state { get; set; }
+    }
+
+    [DataContract(IsReference = true)]
+    [KnownType(typeof(FILE))]
     public class STG
     {
         [DataMember]
@@ -30,5 +52,10 @@ namespace Dad_server_component.Server_component
         public string tokenApll { get; set; }
         [DataMember]
         public string tokenUser { get; set; }
+        [DataMember]
+        public int userId { get; set; }
+        
     }
+
+    
 }
