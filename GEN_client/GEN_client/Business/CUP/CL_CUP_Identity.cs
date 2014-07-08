@@ -3,26 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GEN_client.CL_SERVC;
+using GEN_client.Business.CUT;
+using GEN_client.Business.SERVU;
 
 namespace GEN_client.Business.CUP
 {
     public class CL_CUP_Identity
     {
-        public bool login(string login, string password)
+        private CL_SERVU servu;
+        private CL_CUT cut;
+        private STG msg;
+        
+        public CL_CUP_Identity()
         {
-            string login1 = "caca";
-            string password1 = "prout";
+             this.servu = new CL_SERVU();
+             this.cut = new CL_CUT();
+        }
+      
 
-            if (login1 == login && password1 == password)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
+        public async Task<STG> login(string login, string password)
+        {
             
+            this.msg = this.cut.login(login, password);
+
+            return await this.servu.sendMessage(this.msg);
         }
     }
 }

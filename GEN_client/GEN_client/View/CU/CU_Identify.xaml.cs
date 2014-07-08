@@ -1,7 +1,9 @@
 ﻿using GEN_client.Business.CUP;
+using GEN_client.CL_SERVC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +22,11 @@ namespace GEN_client.View.CU
     /// </summary>
     public partial class CU_Identify : Window
     {
+        private CL_CUP_Identity cupIdentify;
         public CU_Identify()
         {
             InitializeComponent();
+            this.cupIdentify = new CL_CUP_Identity();
         }
 
         private void Cancel(object sender, RoutedEventArgs e)
@@ -30,12 +34,13 @@ namespace GEN_client.View.CU
             this.Close();
         }
 
-        private void LoginClick(object sender, RoutedEventArgs e)
+        private async void LoginClick(object sender, RoutedEventArgs e)
         {
 
-            CL_CUP_Identity identity = new CL_CUP_Identity();
+            STG msg = await this.cupIdentify.login(txtUsername.Text, txtPassword.Password);
+          
 
-            if (!identity.login(txtUsername.Text, txtPassword.Password))
+            if (!msg.statut_op)
             {
                 errorAuth.Visibility = Visibility.Visible;
             }
@@ -43,7 +48,7 @@ namespace GEN_client.View.CU
 
             else
             {
-                CU_Files fenetre = new CU_Files();
+                CU_Files fenetre = new CU_Files(msg);
                 fenetre.Show();
                 this.Close();
             }

@@ -1,4 +1,6 @@
 ﻿using GEN_client.Business.CUP;
+using GEN_client.Business.SERVU;
+using GEN_client.CL_SERVC;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -26,20 +28,22 @@ namespace GEN_client.View.CU
     public partial class CU_Files : Window
     {
 
-        private string file; 
+        private List<FILE> files; 
         ObservableCollection<fichierDetail> listFile = new ObservableCollection<fichierDetail>();
+        private STG msg;
 
         public ObservableCollection<fichierDetail> list
         {
             get { return listFile; }
         }
 
-        public CU_Files()
+        public CU_Files(STG msg)
         {
             InitializeComponent();
+            this.msg = msg;
             listView.ItemsSource = list;
-
-
+            this.files = new List<FILE>();
+  
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
@@ -57,8 +61,8 @@ namespace GEN_client.View.CU
                     using (Stream s = dlg.OpenFile())
                     {
 
-                        string waiting = "En cours";
-                        string wainting2 = "Traitement non résolu";
+                       // string waiting = "En cours";
+                       // string wainting2 = "Traitement non résolu";
                         string waiting3 = " Traitement résolu";
                         string wait = "";
 
@@ -70,12 +74,12 @@ namespace GEN_client.View.CU
                         string img = "C:/Users/agathe/Desktop/load.png";
 
                         string path = "informations.xaml";
-                        CheckBox check = new CheckBox();
-                        Debug.Write(dlf);
+                        var onlyFileName = System.IO.Path.GetFileName(dlf);
+                     
                         listFile.Add(new fichierDetail
                         {
-                            
-                            nameFile = dlf,
+
+                            nameFile = onlyFileName,
                             pdfFile = wait,
                             img = img,
                             key = "toto",
@@ -86,8 +90,17 @@ namespace GEN_client.View.CU
                         });
 
                         space.Text = dlf;
-                        string copy = System.IO.File.ReadAllText(dlf);
-                        this.file = copy;
+
+                        FILE remplirFile = new FILE();
+                        remplirFile.file_name = onlyFileName;
+                        remplirFile.content = System.IO.File.ReadAllText(dlf);
+                        remplirFile.file_email = null;
+                        remplirFile.file_code = null;
+                        remplirFile.file_date = DateTime.Now;
+                        remplirFile.file_url = null;
+                        remplirFile.state = false;
+
+                        this.files.Add(remplirFile);
 
                     }
                 }
@@ -96,7 +109,7 @@ namespace GEN_client.View.CU
         }
 
 
-        private void buttonSend_Click(object sender, RoutedEventArgs e)
+        private async void buttonSend_Click(object sender, RoutedEventArgs e)
         {
             if (!File.Exists(space.Text))
             {
@@ -108,15 +121,14 @@ namespace GEN_client.View.CU
 
             if (typeFile != ".txt")
             {
-                error.Content = "Le fichier n'est pas au format .txt ";
+                error.Content = "Le fichier n'est pas au format .txt";
                 error.Visibility = Visibility.Visible;
             }
 
             else
             {
                 CL_CUP_Files files = new CL_CUP_Files();
-                files.sendFiles(this.file);
-
+                STG msg = await files.uploadFiles(this.files,this.msg);
             }
 
         }
@@ -130,16 +142,21 @@ namespace GEN_client.View.CU
         }
         
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
-        {
+        {          
+            while (listView.SelectedItems.Count != 0)
+            {
+               listFile.RemoveAt(listView.SelectedIndex);
+            }
 
-
-            listFile.RemoveAt(listView.SelectedIndex);
-    
         }
 
         private void buttonDeleteAll_Click(object sender, RoutedEventArgs e)
         {
-            listFile.Clear();
+
+            while (listFile.Count != 0)
+            {
+                listFile.RemoveAt(0);
+            }
             
         }
 
@@ -149,6 +166,14 @@ namespace GEN_client.View.CU
             CU_SecretInformations window = new CU_SecretInformations(this.listFile[listView.SelectedIndex]);
 
             window.ShowDialog();
+        }
+
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            CU_FilesByUser window = new CU_FilesByUser();
+            window.Show();
+            this.Close();
         }
 
 

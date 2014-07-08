@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +57,13 @@
     </ApplicationDefinition>
     <Compile Include="Business\CUP\CL_CUP_Files.cs" />
     <Compile Include="Business\CUP\CL_CUP_Identity.cs" />
-    <Compile Include="Business\CUP\CL_CUP_SecretInformations.cs" />
+    <Compile Include="Business\CUT\CL_CUT.cs" />
+    <Compile Include="Business\SERVU\CL_SERVU.cs" />
+    <Compile Include="Service References\CL_SERVC\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="View\CU\CU_Files.xaml.cs">
       <DependentUpon>CU_Files.xaml</DependentUpon>
     </Compile>
@@ -64,6 +72,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extend_service\CUC\CL_CUC.cs" />
+    <Compile Include="View\CU\CU_FilesByUser.xaml.cs">
+      <DependentUpon>CU_FilesByUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CU\CU_Identify.xaml.cs">
       <DependentUpon>CU_Identify.xaml</DependentUpon>
     </Compile>
@@ -71,6 +82,10 @@
       <DependentUpon>CU_SecretInformations.xaml</DependentUpon>
     </Compile>
     <Page Include="View\CU\CU_Files.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CU\CU_FilesByUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,16 +121,45 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\CL_SERVC\Arrays1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CL_SERVC\Dad_server_component.Server_component1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CL_SERVC\GEN_client.CL_SERVC.STG.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CL_SERVC\service1.wsdl" />
+    <None Include="Service References\CL_SERVC\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CL_SERVC\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Business\CUT\" />
-    <Folder Include="Business\SERVU\" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CL_SERVC\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CL_SERVC\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CL_SERVC\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CL_SERVC\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Dad_server_component.Server_component" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Dad_server_component.Server_component" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="STG">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="data" nillable="true" type="q1:ArrayOfArrayOfanyType" />
+      <xs:element minOccurs="0" name="info" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="operationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="statut_op" type="xs:boolean" />
+      <xs:element minOccurs="0" name="tokenApll" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tokenUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="userId" type="xs:int" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="STG" nillable="true" type="tns:STG" />
+  <xs:complexType name="FILE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="file_code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="file_date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="file_email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="file_name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="file_url" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="state" type="xs:boolean" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="FILE" nillable="true" type="tns:FILE" />
+</xs:schema>
