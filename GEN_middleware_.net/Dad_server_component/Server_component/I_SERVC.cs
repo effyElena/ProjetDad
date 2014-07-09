@@ -33,7 +33,7 @@ namespace Dad_server_component.Server_component
         [DataMember]
         public DateTime file_date { get; set; }
         [DataMember]
-        public bool state { get; set; }
+        public int state { get; set; }
     }
 
     [DataContract(IsReference = true)]

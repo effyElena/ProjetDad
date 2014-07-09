@@ -1,4 +1,5 @@
-﻿using Dad_server_component.Server_component;
+﻿using Business.Mapping;
+using Dad_server_component.Server_component;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,30 +12,27 @@ namespace Business.Job_component
 {
     public class CL_CM_File
     {
+        private CL_EM_File emFile;
+
         public CL_CM_File()
         {
-
+            this.emFile = new CL_EM_File();
         }
 
-        public void appelJ2ee(FILE file, StringBuilder tempFile, string tempString)
+        public void saveFile(FILE file, int userId)
         {
-            CL_CM_J2ee cmJ2ee = new CL_CM_J2ee();
-           // string result = await cmJ2ee.sendFileJ2ee(file.file_name, tempFile.ToString(), tempString);
-           
+            this.emFile.insertFile(file.file_name, 0, userId);
         }
 
         public void decrypt(FILE file){
-             //int cle = 99999;
-            int cle = 65000;
+            int cle = 99999;
             string content = file.content;
 
-            Parallel.For(64000, cle, i =>{
+            Parallel.For(0, cle, i =>{
             //for (int i = 0; i < 99999; i++){
 
                 String tempString = Convert.ToString(i);
-
                 StringBuilder tempFile = new StringBuilder();
-
 
                 int ind = 0;
                 for (int j = 0; j < content.Length; j++)
@@ -45,25 +43,17 @@ namespace Business.Job_component
                     {
                         ind = 0;
                     }
-
-
-
                 }
 
                 int id = Thread.CurrentThread.ManagedThreadId;
 
                 //appel j2ee nom, content, cle,         nom du thread,  (besoin de l'id user pour le retour du j2ee dans stop decrypt)
-
-            
                 CL_CM_J2ee cmJ2ee = new CL_CM_J2ee();
                 string result = cmJ2ee.sendFileJ2ee(file.file_name, Encoding.UTF8.GetBytes(tempFile.ToString()), tempString);
-
-
 
             //}
             });
 
-            Console.WriteLine();
         }
 
         public void decrypt2(string f){

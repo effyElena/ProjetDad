@@ -42,6 +42,9 @@ namespace Dad_server_component.Server_component
                 case "Application_client":
                     Boolean = true;
                     break;
+                case "Serveur_j2ee":
+                    Boolean = true;
+                    break;
                 default:
                     Boolean = false;
                     break;
@@ -94,8 +97,6 @@ namespace Dad_server_component.Server_component
                 return typeBase.MakeGenericType(typeGenerics.ToArray());
             }
         }
-
-
 
 
         void I_SERVC.file(FILE file)

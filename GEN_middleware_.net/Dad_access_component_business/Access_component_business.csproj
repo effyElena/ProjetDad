@@ -34,6 +34,9 @@
     <Reference Include="Dad_server_component">
       <HintPath>..\Dad_server_component\obj\Release\Dad_server_component.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\IIS Express\GEN\bin\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />

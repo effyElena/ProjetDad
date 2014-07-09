@@ -6,28 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Workflow_controller.File
+namespace Business.Workflow_controller.User
 {
-    public class CL_CW_Decrypt : I_CW
+    public class CL_CW_Refresh:I_CW
     {
         private STG msg;
-        private CL_CM_File cmFile;
+        private CL_CM_User cmUser;
+
         public STG exec(STG msg)
         {
+            this.cmUser = new CL_CM_User();
             this.msg = msg;
-
-            this.cmFile = new CL_CM_File();
 
             for (int i = 0; i < this.msg.data[0].Length; i++)
             {
-                // thread cmfile
-                this.cmFile.saveFile((FILE)this.msg.data[0][i], this.msg.userId);
-                //this.cmFile.decrypt((FILE)this.msg.data[0][i]);
+                if(this.msg.data[0][i]!=null){
+                    this.msg.data[0][i] = this.cmUser.refresh((FILE)this.msg.data[0][i], this.msg.userId);
+                }
             }
-            
-            // select where file = file
-
-            // return msg with new data
 
             return this.msg;
         }

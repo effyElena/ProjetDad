@@ -11,15 +11,37 @@ namespace Business.Mapping
         private string file_name;
         private string file_email;
         private string file_code;
+        private int file_Id;
         private string file_url;
         private DateTime file_date;
-        private Boolean state;
+        private int state;
+        private int user_id;
         private CL_CAD cad;
+
+        public CL_EM_File()
+        {
+            this.cad = new CL_CAD();
+        }
 
         public string File_name
         {
             get { return file_name; }
             set { file_name = value; }
+        }
+
+        public void insertFile(string name, int state, int userId)
+        {
+            
+            object[][] data = this.cad.executeSql("INSERT INTO [ProjetDAD].[dbo].[File] ( [File_name], [File_date], [AppUser_id], [State]) VALUES ( '" + name + "','" + DateTime.Now + "','" + userId + "','" + state + "');");
+
+
+
+        }
+
+        public int File_Id
+        {
+            get { return file_Id; }
+            set { file_Id = value; }
         }
         public string File_email
         {
@@ -45,7 +67,7 @@ namespace Business.Mapping
             set { file_date = value; }
         }
 
-        public Boolean State
+        public int State
         {
             get { return state; }
             set { state = value; }

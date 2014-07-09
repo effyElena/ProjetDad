@@ -14,7 +14,7 @@ namespace Dad_server_component.Server_component
 
         public CL_SERVM_File()
         {
-            cam = new CL_CAM();
+            this.cam = new CL_CAM();
         }
         public STG exec(STG msg)
         {
@@ -25,11 +25,11 @@ namespace Dad_server_component.Server_component
 
         public STG decrypt(STG msg)
         {
-           return cam.redirection(msg);
+            return this.cam.redirection(msg);
         }
         public STG stopDecrypt(STG msg)
         {
-            return cam.redirection(msg);
+            return this.cam.redirection(msg);
         }
 
         

@@ -89,7 +89,7 @@ namespace Business.Mapping
                 int j = 0;
                 while (reader.Read())
                 {
-                    data[j] = new object[100];
+                    data[j] = new object[reader.FieldCount];
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
                         data[j][i] = reader.GetValue(i);

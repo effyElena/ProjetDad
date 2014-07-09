@@ -14,7 +14,7 @@ namespace Dad_server_component.Server_component
 
         public CL_SERVM_User()
         {
-            cam = new CL_CAM();
+            this.cam = new CL_CAM();
         }
        
         public STG exec(STG msg)
@@ -25,11 +25,15 @@ namespace Dad_server_component.Server_component
         }
         public STG login(STG msg)
         {
-            return cam.redirection(msg);
+            return this.cam.redirection(msg);
         }
         public STG histoFile(STG msg)
         {
-            return cam.redirection(msg);
+            return this.cam.redirection(msg);
+        }
+        public STG refresh(STG msg)
+        {
+            return this.cam.redirection(msg);
         }
        
 
