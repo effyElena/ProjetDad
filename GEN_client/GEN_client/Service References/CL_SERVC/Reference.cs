@@ -185,7 +185,7 @@ namespace GEN_client.CL_SERVC {
         private string file_urlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool stateField;
+        private int stateField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -276,7 +276,7 @@ namespace GEN_client.CL_SERVC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool state {
+        public int state {
             get {
                 return this.stateField;
             }

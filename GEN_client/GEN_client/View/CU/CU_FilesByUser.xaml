@@ -27,17 +27,12 @@
         <!-- Body -->
         <Canvas Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
 
-
-
-          
-
-            
             <Button x:Name="buttonSeeDetails" Content="Detail"  Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Canvas.Left="67" Canvas.Top="196" Visibility="Hidden"/>
            
            
             <ListView Height="249" Name="listViewByUser" Canvas.Left="10" Canvas.Top="10" Width="577" SelectionChanged="SelectionChanged_FileByUser"    >
                 <ListView.View>
-                    <GridView >
+                    <GridView>
 
   
 
@@ -54,6 +49,14 @@
             </ListView>
 
         </Canvas>
+        <Button Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Width="42" Grid.Row="1" Click="returnClick">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <Image Source="C:\Users\agathe\Desktop\fleche.png" Height="21" Width="31"></Image>
+                </DataTemplate>
+            </Button.ContentTemplate>
+
+        </Button>
 
     </Grid>
 

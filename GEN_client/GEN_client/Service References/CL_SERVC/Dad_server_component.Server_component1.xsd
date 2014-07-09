@@ -24,7 +24,7 @@
       <xs:element minOccurs="0" name="file_email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="file_name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="file_url" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="state" type="xs:boolean" />
+      <xs:element minOccurs="0" name="state" type="xs:int" />
     </xs:sequence>
     <xs:attribute ref="ser:Id" />
     <xs:attribute ref="ser:Ref" />

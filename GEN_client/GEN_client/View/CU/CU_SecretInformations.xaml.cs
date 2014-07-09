@@ -20,6 +20,7 @@ namespace GEN_client.View.CU
     public partial class CU_SecretInformations : Window
     {
         fichierDetail fichierdetails;
+
         public CU_SecretInformations(fichierDetail fichier)
         {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace GEN_client.View.CU
             this.nameFile.Content = this.fichierdetails.nameFile;
             this.code.Content = this.fichierdetails.key;
             this.secretInfo.Content = this.fichierdetails.email;
+            this.dateDecrypt.Content = this.fichierdetails.dateFile;
        
         }
     }

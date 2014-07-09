@@ -21,12 +21,12 @@ namespace GEN_client.Business.CUT
             this.msg.tokenUser = null;
         }
 
+
         public STG login(string login, string password)
         {
             this.msg.statut_op = false;
             this.msg.operationName = "login";
 
-            Console.WriteLine( password);
             this.msg.data = new object[10][];
             this.msg.data[0] = new object[10]; 
             this.msg.data[0][0] = new object();
@@ -44,10 +44,20 @@ namespace GEN_client.Business.CUT
             this.msg.operationName = "decrypt";
 
             this.msg.data = new object[10][];
-            this.msg.data[0] = new object[files.Count];
+            
             int i = 0;
 
+            List<FILE> filesBis = new List<FILE>();
+
             foreach(FILE file in files)
+            {
+                if (file.state == 3)
+                {
+                    filesBis.Add(file);
+                }
+            }
+            this.msg.data[0] = new object[filesBis.Count];
+            foreach (FILE file in filesBis)
             {
                 this.msg.data[0][i] = file;
                 i++;
@@ -60,6 +70,42 @@ namespace GEN_client.Business.CUT
 
         }
 
-       
+
+
+        internal STG refresh(List<FILE> files, STG msg)
+        {
+            this.msg = msg;
+            this.msg.statut_op = false;
+            this.msg.operationName = "refresh";
+
+            this.msg.data = new object[10][];
+            this.msg.data[0] = new object[files.Count];
+            int i = 0;
+
+            foreach (FILE file in files)
+            {
+                this.msg.data[0][i] = file;
+                i++;
+            }
+
+            this.msg.info = "CL_SERVM_User";
+
+
+            return this.msg;
+        }
+
+        public List<FILE> getListFile(STG msg)
+        {
+            this.msg = msg;
+            List<FILE> files = new List<FILE>();
+
+            for (int i = 0; i < this.msg.data[0].Length; i++)
+            {
+                files.Add((FILE)
+                    this.msg.data[0][i]);
+            }
+
+            return files;
+        }
     }
 }

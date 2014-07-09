@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GEN_client.CL_SERVC;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -23,14 +24,19 @@ namespace GEN_client.View.CU
     {
         List<String> filesByUser = new List<string>();
         ObservableCollection<fichierDetailByUser> listFile = new ObservableCollection<fichierDetailByUser>();
+        private STG msg;
 
         public ObservableCollection<fichierDetailByUser> list
         {
             get { return listFile; }
         }
 
-        public CU_FilesByUser()
+        
+
+        public CU_FilesByUser(STG msg)
         {
+            this.msg = msg;
+
             InitializeComponent();
             filesByUser.Add("azz");
             filesByUser.Add("sdsd");
@@ -66,6 +72,15 @@ namespace GEN_client.View.CU
         private void SelectionChanged_FileByUser(object sender, SelectionChangedEventArgs e)
         {
             buttonSeeDetails.Visibility = Visibility.Visible;
+        }
+
+
+
+        private void returnClick(object sender, RoutedEventArgs e)
+        {
+            CU_Files win = new CU_Files(this.msg);
+            win.Show();
+            this.Close();
         }
     }
 }

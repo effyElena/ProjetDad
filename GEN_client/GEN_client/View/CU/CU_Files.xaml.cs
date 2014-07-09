@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -25,25 +26,39 @@ namespace GEN_client.View.CU
     /// <summary>
     /// Logique d'interaction pour CU_files.xaml
     /// </summary>
-    public partial class CU_Files : Window
+    public partial class CU_Files : Window 
     {
 
-        private List<FILE> files; 
-        ObservableCollection<fichierDetail> listFile = new ObservableCollection<fichierDetail>();
+        private List<FILE> files;
+        private ObservableCollection<fichierDetail> listFile;
         private STG msg;
-
-        public ObservableCollection<fichierDetail> list
-        {
-            get { return listFile; }
-        }
+        private string img ;
+        private string path = "informations.xaml";
+        private string state;
+        private CL_CUP_Files cupFiles;
 
         public CU_Files(STG msg)
         {
             InitializeComponent();
+            this.cupFiles = new CL_CUP_Files();
+            this.listFile = new ObservableCollection<fichierDetail>();
             this.msg = msg;
-            listView.ItemsSource = list;
-            this.files = new List<FILE>();
-  
+            this.files = this.cupFiles.getListFile(this.msg);
+
+            foreach(FILE file in this.files){
+                this.listFile.Add(new fichierDetail
+                {
+                    nameFile = file.file_name,
+                    state = "En cours de traitement",
+                    img = "C:/Users/agathe/Desktop/load.png",
+                    key = file.file_code,
+                    email = file.file_email,
+                    path = this.path,
+                    pdfFile = file.file_url,
+                    dateFile = file.file_date
+                });
+            }
+            this.listView.ItemsSource = this.listFile;
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
@@ -61,30 +76,17 @@ namespace GEN_client.View.CU
                     using (Stream s = dlg.OpenFile())
                     {
 
-                       // string waiting = "En cours";
-                       // string wainting2 = "Traitement non résolu";
-                        string waiting3 = " Traitement résolu";
-                        string wait = "";
-
-                        if (waiting3 == " Traitement résolu")
-                        {
-                            wait = " Traitement résolu";
-                        }
-
-                        string img = "C:/Users/agathe/Desktop/load.png";
-
-                        string path = "informations.xaml";
                         var onlyFileName = System.IO.Path.GetFileName(dlf);
                      
                         listFile.Add(new fichierDetail
                         {
 
                             nameFile = onlyFileName,
-                            pdfFile = wait,
-                            img = img,
-                            key = "toto",
-                            email = "terroriste@viacesi.fr",
-                            path = path,
+                            state = "Non envoyé",
+                            key = "",
+                            email = "",
+                            path = this.path,
+                            pdfFile = ""
 
 
                         });
@@ -98,7 +100,7 @@ namespace GEN_client.View.CU
                         remplirFile.file_code = null;
                         remplirFile.file_date = DateTime.Now;
                         remplirFile.file_url = null;
-                        remplirFile.state = false;
+                        remplirFile.state = 4;
 
                         this.files.Add(remplirFile);
 
@@ -111,24 +113,29 @@ namespace GEN_client.View.CU
 
         private async void buttonSend_Click(object sender, RoutedEventArgs e)
         {
-            if (!File.Exists(space.Text))
+            Boolean condition =false;
+            foreach(FILE file in this.files)
             {
-                error.Content = "Le fichier n'a pas été trouvé.";
-                error.Visibility = Visibility.Visible;
+               if (file.state == 4)
+                    {
+                        file.state = 3;
+                        condition = true;
+                    }
             }
-            int length = space.Text.Length;
-            string typeFile = space.Text.Substring(length - 4);
 
-            if (typeFile != ".txt")
+            if (!condition)
             {
-                error.Content = "Le fichier n'est pas au format .txt";
-                error.Visibility = Visibility.Visible;
+                this.error.Content = "Aucun fichier à envoyer";
+                this.error.Visibility = Visibility.Visible;
             }
 
             else
             {
-                CL_CUP_Files files = new CL_CUP_Files();
-                STG msg = await files.uploadFiles(this.files,this.msg);
+                this.error.Content = "";
+                this.refresh();
+                STG msg = await this.cupFiles.uploadFiles(this.files,this.msg);
+                this.refresh();
+
             }
 
         }
@@ -136,49 +143,93 @@ namespace GEN_client.View.CU
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            buttonDetail.Visibility = Visibility.Visible;
-
-        
+            this.buttonDetail.Visibility = Visibility.Visible;
         }
         
         private void buttonDelete_Click(object sender, RoutedEventArgs e)
         {          
-            while (listView.SelectedItems.Count != 0)
+            while (this.listView.SelectedItems.Count != 0)
             {
-               listFile.RemoveAt(listView.SelectedIndex);
+               this.listFile.RemoveAt(listView.SelectedIndex);
             }
-
         }
 
         private void buttonDeleteAll_Click(object sender, RoutedEventArgs e)
         {
-
-            while (listFile.Count != 0)
+            while (this.listFile.Count != 0)
             {
-                listFile.RemoveAt(0);
+                this.listFile.RemoveAt(0);
+                this.files.RemoveAt(0);
             }
-            
         }
 
 
         private void buttonDetail_Click(object sender, RoutedEventArgs e)
         {
             CU_SecretInformations window = new CU_SecretInformations(this.listFile[listView.SelectedIndex]);
-
             window.ShowDialog();
         }
 
 
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            CU_FilesByUser window = new CU_FilesByUser();
+            CU_FilesByUser window = new CU_FilesByUser(this.msg);
             window.Show();
             this.Close();
         }
 
+        private void actu_click(object sender, MouseButtonEventArgs e) 
+        {
+            this.refresh();
+        }
 
+        private async void refresh()
+        {
 
+            this.msg = await this.cupFiles.refresh(this.files, this.msg);
+            this.files = null;
+            this.files = this.cupFiles.getListFile(this.msg);
+            this.listFile = null;
+            this.listFile = new ObservableCollection<fichierDetail>();
+            foreach (FILE file in this.files)
+            {
+                if (file.state == 0)
+                {
+                    this.state = "En cours de traitement";
+                    this.img = "C:/Users/agathe/Desktop/load.png";
+                }
+                if (file.state == 1)
+                {
+                    this.state = "Décrypté";
+                    this.img = "C:/Users/agathe/Desktop/check.png";
+                }
+                if (file.state == 2)
+                {
+                    this.state = "Non décrypté";
+                    this.img = "C:/Users/agathe/Desktop/fail.png";
+                }
+                if (file.state == 3)
+                {
+                    this.state = "En cours d'envoi";
+                    this.img = "C:/Users/agathe/Desktop/load.png";
+                }
 
+                this.listFile.Add(new fichierDetail
+                {
+                    nameFile = file.file_name,
+                    state = this.state,
+                    img = this.img,
+                    key = file.file_code,
+                    email = file.file_email,
+                    path = this.path,
+                    pdfFile = file.file_url,
+                    dateFile = file.file_date
+                });
+            }
+            this.listView.ItemsSource = this.listFile;
+            ICollectionView view = CollectionViewSource.GetDefaultView(this.listView.ItemsSource);
+            view.Refresh();
+        }
     }
 
 
@@ -189,10 +240,12 @@ namespace GEN_client.View.CU
         public bool finish { get; set; }
         public string nameFile { get; set; }
         public string key { get; set; }
-        public string pdfFile { get; set; }
+        public string state { get; set; }
         public string email { get; set; }
         public string path { get; set; }
+        public string pdfFile { get; set; }
         public ListViewItem FocusedItem { get; set; }
+        public DateTime dateFile { get; set; }
         
 
     }
