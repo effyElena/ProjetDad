@@ -18,6 +18,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+
+import traitement_jpa.model.entity.Dico;
 
 import com.jms.message.CL_JMS_MessageSearch;
 
@@ -30,9 +33,11 @@ import com.jms.message.CL_JMS_MessageSearch;
 				propertyName = "destination", propertyValue = "queue")
 		}, 
 		mappedName = "queue")
-public class CL_Queue_Listener implements MessageListener {
+public class CL_Queue_Listener  implements MessageListener {
 	@PersistenceContext(unitName = "traitement_jpa")
 	private EntityManager em;
+	private Query requete = null;
+	List<Dico> dico;
     /**
      * Default constructor. 
      */
@@ -40,10 +45,11 @@ public class CL_Queue_Listener implements MessageListener {
     	
     }
 	
-    /*@PostConstruct
+    @PostConstruct
     public void init () {
-    	this.em.flush();
-    }*/
+    	this.requete = em.createQuery("SELECT d.mot FROM Dico d");
+		dico = this.requete.getResultList();
+    }
     
     @PreDestroy
     public void reset () {
@@ -59,13 +65,11 @@ public class CL_Queue_Listener implements MessageListener {
     		try {
     		ObjectMessage searchMessage = (ObjectMessage) message;
     		CL_JMS_MessageSearch messageSearch;
-			
-				messageSearch = (CL_JMS_MessageSearch) searchMessage.getObject();
-    		System.out.println("Traitement de la clef :"+messageSearch.getClef()+" contenu:"+messageSearch.getFichier());
+    		messageSearch = (CL_JMS_MessageSearch) searchMessage.getObject();
         	CL_Traitement_Ejb traitement = new CL_Traitement_Ejb();
-        	double pourcentage = traitement.Traitement(messageSearch.getFichier(), messageSearch.getClef(), em);
-        	messageSearch.setPourcentage(pourcentage);
-        	if(pourcentage>=30)
+        	
+        	messageSearch.setPourcentage(traitement.Traitement(messageSearch.getFichier(), messageSearch.getClef(), dico));
+        	if(messageSearch.getPourcentage()>=30)
         	{
     	    	CL_Search_Mail searchMail = new CL_Search_Mail();
     	    	results = searchMail.SearchMail(messageSearch.getFichier());

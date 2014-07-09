@@ -1,11 +1,15 @@
 package com.traitement;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 import javax.persistence.EntityManager;
+
+import traitement_jpa.model.entity.Dico;
 
 @Remote
 public interface CL_Verification_MotsRemote {
 	
-	public boolean Verification_Mots(String mot, EntityManager em);
+	public int Verification_Mots(String mot, List<Dico> dico);
 	
 }

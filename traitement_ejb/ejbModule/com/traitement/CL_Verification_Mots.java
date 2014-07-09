@@ -20,25 +20,22 @@ import traitement_jpa.model.entity.Dico;
 @Stateless
 @LocalBean
 public class CL_Verification_Mots implements CL_Verification_MotsRemote {
-	private Query requete = null;
 	
-    public boolean Verification_Mots(String mot, EntityManager em) {
-    	Pattern p = Pattern.compile("[a-zA-Z]", Pattern.MULTILINE);
-    	Matcher m = p.matcher(mot);
-    	if(mot.length()<25 && m.find()==true){
-			this.requete = em.createQuery("SELECT d.mot FROM Dico d WHERE d.mot=:mot");
-			this.requete.setParameter("mot", mot);
-			List<Dico> dico = this.requete.getResultList();
-			if(dico.size() != 0)
+    public int Verification_Mots(String mot, List<Dico> dico) {
+    	/*Pattern p = Pattern.compile("[a-zA-Z]", Pattern.MULTILINE);
+    	Matcher m = p.matcher(mot);*/
+    	if(mot.length()<26 /*& m.find()==true*/){
+			
+			if(dico.contains(mot)==true)
 			{
-				return true;
+				return 1;
 			}
 			else
 			{
-				return false;
+				return 0;
 			}
 			
     	}
-		return false;
+		return 2;
     }
 }
