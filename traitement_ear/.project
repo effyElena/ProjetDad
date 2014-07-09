@@ -3,8 +3,8 @@
 	<name>traitement_ear</name>
 	<comment></comment>
 	<projects>
-		<project>traitement_ejb</project>
 		<project>traitement_jpa</project>
+		<project>traitement_ejb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -2,5 +2,7 @@
     <wb-module deploy-name="traitement_ejb">
         <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
         <property name="java-output-path" value="/traitement_ejb/build/classes"/>
+        <property name="ClientProject" value="renameTotraitement_ejbClient"/>
+        <property name="ClientJARURI" value="renameTotraitement_ejbClient.jar"/>
     </wb-module>
 </project-modules>
