@@ -1,0 +1,19 @@
+package com.reception;
+
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
+
+
+@WebService
+@SOAPBinding(style = Style.RPC)
+public interface IWSReception {
+	@WebMethod
+	String Message(@WebParam(name="texte") String texte );
+
+	@WebMethod
+	String MessageJMS();
+
+}

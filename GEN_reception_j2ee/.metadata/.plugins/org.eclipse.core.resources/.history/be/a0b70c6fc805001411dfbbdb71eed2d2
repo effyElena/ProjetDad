@@ -1,0 +1,27 @@
+package com.reception;
+
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+import com.jms.message.CL_JMS_MessageSearch;
+
+@WebService(endpointInterface = "com.reception.IWSReception")
+public class CL_WS_Reception implements IWSReception {
+
+	@Override
+	public String Message(String texte) {
+		// TODO Auto-generated method stub
+		return new CL_Reception().Post();
+	}
+	
+	@Override
+	public String MessageJMS(String nom , String message , String cle) {
+		// TODO Auto-generated method stub
+		CL_JMS_MessageSearch search = new CL_JMS_MessageSearch();
+		search.setFichier(nom);
+		search.setNomDocement(message);
+		search.setClef(cle);
+		return new CL_Reception().Hello(search);
+	}
+
+}

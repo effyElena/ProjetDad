@@ -1,0 +1,22 @@
+package com.reception;
+
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+@WebService(endpointInterface = "com.reception.IWSReception")
+public class CL_WS_Reception implements IWSReception {
+
+	@Override
+	public String Message(String texte) {
+		// TODO Auto-generated method stub
+		return new CL_Reception().Post();
+	}
+	
+	@Override
+	public String MessageJMS(String nom , String message , String cle) {
+		// TODO Auto-generated method stub
+		new CL_Reception().Hello(message);
+		return 
+	}
+
+}
