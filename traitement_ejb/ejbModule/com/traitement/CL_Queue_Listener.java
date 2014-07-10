@@ -68,7 +68,6 @@ public class CL_Queue_Listener  implements MessageListener {
 	    		CL_JMS_MessageSearch messageSearch;
 	    		messageSearch = (CL_JMS_MessageSearch) searchMessage.getObject();
 	        	CL_Traitement_Ejb traitement = new CL_Traitement_Ejb();
-	        	messageSearch.setFichier("Coucou le monde loic.vigneau@viacesi.fr");
 	        	System.out.println(messageSearch.getFichier());
 	        	messageSearch.setPourcentage(traitement.Traitement(messageSearch.getFichier(), messageSearch.getClef(), dico));
     	    	System.out.println(messageSearch.getPourcentage());
