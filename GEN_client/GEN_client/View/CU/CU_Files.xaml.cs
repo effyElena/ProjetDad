@@ -132,7 +132,7 @@ namespace GEN_client.View.CU
             else
             {
                 this.error.Content = "";
-                this.refresh();
+                //this.refresh();
                 STG msg = await this.cupFiles.uploadFiles(this.files,this.msg);
                 this.refresh();
 
@@ -143,23 +143,46 @@ namespace GEN_client.View.CU
 
         private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.buttonDetail.Visibility = Visibility.Visible;
-        }
-        
-        private void buttonDelete_Click(object sender, RoutedEventArgs e)
-        {          
-            while (this.listView.SelectedItems.Count != 0)
+            foreach (FILE file in this.files)
             {
-               this.listFile.RemoveAt(listView.SelectedIndex);
+                if (file.state == 1)
+                {
+                    this.buttonDetail.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.buttonDetail.Visibility = Visibility.Hidden;
+                }
             }
         }
 
+ 
+
+
+
         private void buttonDeleteAll_Click(object sender, RoutedEventArgs e)
         {
-            while (this.listFile.Count != 0)
-            {
-                this.listFile.RemoveAt(0);
-                this.files.RemoveAt(0);
+            List<FILE> newList = new List<FILE>();
+            
+
+            if (this.files.Count != 0)
+            { 
+
+                foreach (FILE file in this.files)
+                {
+                    if (file.state == 4)
+                    {
+                        newList.Add(file); 
+                    }
+                }
+
+                foreach (FILE newFile in newList)
+                {
+                    this.files.Remove(newFile);
+                }
+
+                this.refresh();
+  
             }
         }
 
@@ -175,7 +198,7 @@ namespace GEN_client.View.CU
         {
             CU_FilesByUser window = new CU_FilesByUser(this.msg);
             window.Show();
-            this.Close();
+   
         }
 
         private void actu_click(object sender, MouseButtonEventArgs e) 
@@ -191,6 +214,7 @@ namespace GEN_client.View.CU
             this.files = this.cupFiles.getListFile(this.msg);
             this.listFile = null;
             this.listFile = new ObservableCollection<fichierDetail>();
+
             foreach (FILE file in this.files)
             {
                 if (file.state == 0)
@@ -226,6 +250,7 @@ namespace GEN_client.View.CU
                     dateFile = file.file_date
                 });
             }
+           
             this.listView.ItemsSource = this.listFile;
             ICollectionView view = CollectionViewSource.GetDefaultView(this.listView.ItemsSource);
             view.Refresh();

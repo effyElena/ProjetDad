@@ -1,7 +1,9 @@
-﻿using GEN_client.CL_SERVC;
+﻿using GEN_client.Business.CUP;
+using GEN_client.CL_SERVC;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,40 +24,46 @@ namespace GEN_client.View.CU
     /// </summary>
     public partial class CU_FilesByUser : Window
     {
-        List<String> filesByUser = new List<string>();
-        ObservableCollection<fichierDetailByUser> listFile = new ObservableCollection<fichierDetailByUser>();
+        private List<FILE> filesByUser;
+        ObservableCollection<fichierDetailByUser> listFileByUser;
         private STG msg;
-
-        public ObservableCollection<fichierDetailByUser> list
-        {
-            get { return listFile; }
-        }
-
+        private CL_CUP_Files cupFiles;
         
+        private async void getListHistoFiles()
+        {
+            this.filesByUser = await this.cupFiles.getListFileHisto(this.msg);
 
+            if (this.filesByUser.Count != 0)
+            {
+                foreach (FILE file in this.filesByUser)
+                {
+                    System.Uri uri = new System.Uri(file.file_url);
+                    this.hyperlink.NavigateUri = uri;
+
+                    listFileByUser.Add(new fichierDetailByUser
+                    {
+
+                        nameFile = file.file_name,
+                        date = file.file_date,
+                        key = file.file_code,
+                        email = file.file_email,
+                        pdfFile = uri
+
+                    });
+                }
+                this.listViewByUser.ItemsSource = listFileByUser;
+
+            }
+        }
         public CU_FilesByUser(STG msg)
         {
             this.msg = msg;
 
             InitializeComponent();
-            filesByUser.Add("azz");
-            filesByUser.Add("sdsd");
-            listViewByUser.ItemsSource = list;
+            this.cupFiles = new CL_CUP_Files();
+            this.listFileByUser = new ObservableCollection<fichierDetailByUser>();
+            this.getListHistoFiles();
 
-                foreach (string files in filesByUser)
-                {
-                  
-                    listFile.Add(new fichierDetailByUser
-                    {
-
-                        nameFile = "rger",
-                        date = "19/03/1993",
-                        key = "toto2",
-                        email = "terroriste@viacesi.fr"
-
-                    });
-                }
-            
         }
 
 
@@ -64,23 +72,34 @@ namespace GEN_client.View.CU
 
             public string nameFile { get; set; }
             public string key { get; set; }
-            public string date { get; set; }
+            public DateTime date { get; set; }
             public string email { get; set; }
+            public System.Uri pdfFile { get; set; }
 
         }
 
         private void SelectionChanged_FileByUser(object sender, SelectionChangedEventArgs e)
         {
-            buttonSeeDetails.Visibility = Visibility.Visible;
+            this.textBlock.Visibility = Visibility.Visible;
         }
 
 
 
         private void returnClick(object sender, RoutedEventArgs e)
         {
+            this.msg = this.cupFiles.resetMsg(this.msg);
             CU_Files win = new CU_Files(this.msg);
             win.Show();
             this.Close();
         }
+
+        private void requestNavigateHyperlink(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
+        }
+
+     
+
     }
 }

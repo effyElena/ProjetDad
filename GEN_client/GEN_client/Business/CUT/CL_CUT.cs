@@ -28,7 +28,7 @@ namespace GEN_client.Business.CUT
             this.msg.operationName = "login";
 
             this.msg.data = new object[10][];
-            this.msg.data[0] = new object[10]; 
+            this.msg.data[0] = new object[10];
             this.msg.data[0][0] = new object();
             this.msg.data[0][0] = login;
             this.msg.data[0][1] = password;
@@ -44,12 +44,12 @@ namespace GEN_client.Business.CUT
             this.msg.operationName = "decrypt";
 
             this.msg.data = new object[10][];
-            
+
             int i = 0;
 
             List<FILE> filesBis = new List<FILE>();
 
-            foreach(FILE file in files)
+            foreach (FILE file in files)
             {
                 if (file.state == 3)
                 {
@@ -65,7 +65,7 @@ namespace GEN_client.Business.CUT
 
             this.msg.info = "CL_SERVM_File";
 
-      
+
             return this.msg;
 
         }
@@ -94,18 +94,45 @@ namespace GEN_client.Business.CUT
             return this.msg;
         }
 
+        public STG histoFile(STG msg)
+        {
+            this.msg = msg;
+            this.msg.statut_op = false;
+            this.msg.operationName = "histoFile";
+
+            this.msg.data = new object[10][];
+            this.msg.data[0] = new object[10];
+            this.msg.data[0][0] = new object();
+            
+            this.msg.info = "CL_SERVM_User";
+
+            return this.msg;
+        }
+
+
         public List<FILE> getListFile(STG msg)
         {
             this.msg = msg;
             List<FILE> files = new List<FILE>();
-
-            for (int i = 0; i < this.msg.data[0].Length; i++)
+            if (this.msg.data != null && this.msg.data[0] != null)
             {
-                files.Add((FILE)
-                    this.msg.data[0][i]);
+                for (int i = 0; i < this.msg.data[0].Length; i++)
+                {
+                    if (this.msg.data[0][i] != null)
+                    {
+                        files.Add((FILE)
+                            this.msg.data[0][i]);
+                    }
+                }
             }
-
             return files;
+        }
+
+        public STG resetData(STG msg)
+        {
+            this.msg = msg;
+            this.msg.data = null;
+            return this.msg;
         }
     }
 }

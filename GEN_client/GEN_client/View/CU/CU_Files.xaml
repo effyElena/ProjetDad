@@ -37,11 +37,10 @@
                VerticalAlignment="Top" Width="0" Canvas.Left="10" Canvas.Top="10"  IsReadOnly="True"  />
 
             <Label Name="error"  HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="167" Foreground="#FFEC1717" Width="562" Canvas.Left="10" Visibility="Visible"/>
-            <Button x:Name="buttonDetail" Content="Detail"  Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Click="buttonDetail_Click" Canvas.Left="67" Canvas.Top="196" Visibility="Hidden"/>
-            <Button x:Name="buttonAdd" Content="Parcourir" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonAdd_Click" Canvas.Left="221" Canvas.Top="182" />
-            <Button x:Name="buttonSend" Content="Envoyer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonSend_Click" Canvas.Left="302" Canvas.Top="182" />
+            <Button x:Name="buttonDetail" Content="Detail"  Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Click="buttonDetail_Click" Canvas.Left="23" Canvas.Top="182" Visibility="Hidden"/>
+            <Button x:Name="buttonAdd" Content="Parcourir" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonAdd_Click" Canvas.Left="315" Canvas.Top="182" />
+            <Button x:Name="buttonSend" Content="Envoyer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Click="buttonSend_Click" Canvas.Left="396" Canvas.Top="182" />
             <Button x:Name="buttonDeleteAll" Content="Tout Supprimer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Click="buttonDeleteAll_Click" Canvas.Left="477" Canvas.Top="182" />
-            <Button x:Name="buttonDelete" Content=" Supprimer" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Click="buttonDelete_Click" Canvas.Left="383" Canvas.Top="182" />
             <ListView Height="157" Name="listView" Canvas.Left="10" Canvas.Top="10" Width="577"  SelectionChanged="listView_SelectionChanged"  >
                 <ListView.View>
                     <GridView>

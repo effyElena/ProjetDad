@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,16 @@ namespace GEN_client.View.CU
             this.code.Content = this.fichierdetails.key;
             this.secretInfo.Content = this.fichierdetails.email;
             this.dateDecrypt.Content = this.fichierdetails.dateFile;
+
+            System.Uri uri = new System.Uri(this.fichierdetails.pdfFile);
+            this.hyperlink.NavigateUri = uri;
        
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

@@ -15,36 +15,53 @@ namespace GEN_client.Business.CUP
     {
 
         private CL_CUT cut;
-
+        private CL_SERVU servc;
         public CL_CUP_Files()
         {
             this.cut = new CL_CUT();
+            this.servc = new CL_SERVU();
         }   
 
         public async Task<STG> uploadFiles(List<FILE> files, STG msg)
         {
-            CL_SERVU cl_servu = new CL_SERVU();
+       
           
             msg = this.cut.uploadFile(files, msg);
 
 
-            return await cl_servu.sendMessage(msg);
+            return await servc.sendMessage(msg);
         }
 
 
         public async Task<STG> refresh(List<FILE> files, STG msg)
         {
-            CL_SERVU cl_servu = new CL_SERVU();
+           
 
             msg = this.cut.refresh(files, msg);
 
 
-            return await cl_servu.sendMessage(msg);
+            return await this.servc.sendMessage(msg);
         }
 
         public List<FILE> getListFile(STG msg)
         {
             return this.cut.getListFile(msg);
+        }
+
+        
+
+        public async Task<List<FILE>> getListFileHisto(STG msg)
+        {
+            msg = this.cut.histoFile(msg);
+
+            msg = await servc.sendMessage(msg);
+
+            return this.cut.getListFile(msg);
+        }
+
+        public STG resetMsg(STG msg)
+        {
+            return this.cut.resetData(msg);
         }
     }
 }
