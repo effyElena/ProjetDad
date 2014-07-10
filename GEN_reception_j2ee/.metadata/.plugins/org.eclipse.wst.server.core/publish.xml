@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <publish-info>
+  <server id="GlassFish 4.0 at VM-TRAITEMENT" path="publish1.dat"/>
   <server id="GlassFish 4.0 at VM-RECEPTION" path="publish0.dat"/>
 </publish-info>

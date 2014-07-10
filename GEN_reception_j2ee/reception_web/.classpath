@@ -14,5 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/reception_ejb"/>
+	<classpathentry kind="lib" path="C:/Users/Alex/Desktop/exia/Projet/DAD/ProjetDad/GEN_reception_j2ee/common.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

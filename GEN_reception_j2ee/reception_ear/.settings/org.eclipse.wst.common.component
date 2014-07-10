@@ -9,5 +9,8 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="common.jar" deploy-path="/lib" handle="module:/classpath/lib/C:/Users/Alex/Desktop/exia/Projet/DAD/ProjetDad/GEN_reception_j2ee/common.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

@@ -154,3 +154,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+/GEN_reception_j2ee/common/nbproject/private/
+/GEN_reception_j2ee/reception-ejb/nbproject/private/
+/GEN_reception_j2ee/reception-ejb/dist/

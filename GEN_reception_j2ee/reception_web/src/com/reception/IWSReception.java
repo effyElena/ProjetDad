@@ -7,13 +7,14 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
 
+
 @WebService
 @SOAPBinding(style = Style.RPC)
 public interface IWSReception {
-	@WebMethod
+	@WebMethod(operationName = "Message")
 	String Message(@WebParam(name="texte") String texte );
 
-	@WebMethod
-	String MessageJMS();
+	@WebMethod(operationName = "MessageJMS")
+	String MessageJMS(@WebParam(name="nom")String nom,@WebParam(name="message")byte[] message, @WebParam(name="cle")String cle);
 
 }

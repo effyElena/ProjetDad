@@ -3,6 +3,8 @@ package com.reception;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
+import com.jms.message.CL_JMS_MessageSearch;
+
 /**
  * Session Bean implementation class CL_Reception
  */
@@ -17,8 +19,9 @@ public class CL_Reception implements CL_ReceptionRemote, CL_ReceptionLocal {
         // TODO Auto-generated constructor stub
     }
     
-    public String Hello(){
-    	return "helldfshbnfgotruc";
+    public String Hello(CL_JMS_MessageSearch search){
+    	SendMessage(search);
+    	return "Message Envoyé";
     }
 
 	public String Post() {
@@ -30,5 +33,11 @@ public class CL_Reception implements CL_ReceptionRemote, CL_ReceptionLocal {
 		// TODO Auto-generated method stub
 		return "";
 	}
+	
+	private void SendMessage(CL_JMS_MessageSearch search){	
+		new CL_Queue_Sender(search);
+	}
+
+
 
 }
