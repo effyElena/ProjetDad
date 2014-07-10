@@ -1,6 +1,5 @@
 package com.traitement;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +15,6 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class CL_Search_Mail implements CL_Search_MailRemote {
-	private static List<String> retour = new ArrayList<String>();
     /**
      * Default constructor. 
      */
@@ -25,7 +23,8 @@ public class CL_Search_Mail implements CL_Search_MailRemote {
     }
     
     public List<String> SearchMail(String decode){
-    	try {
+//    	try {
+    	List<String> retour = new ArrayList<String>();
 			Scanner scanner = new Scanner(decode);
 			while (scanner.hasNext()) { 
 				Pattern p = Pattern.compile("[-0-9a-zA-Z.+_+-]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}", Pattern.MULTILINE); 						
@@ -36,10 +35,11 @@ public class CL_Search_Mail implements CL_Search_MailRemote {
 				} 
 			}
 			scanner.close();
-		} 
-		catch (Exception e) { 
-			System.out.println(e.toString()); 
-		}
+//		} 
+//		catch (Exception e) { 
+//			System.out.println(e.toString()); 
+//		}
+			System.out.println("SearchMail "+retour);
 		return retour;
     }
 }

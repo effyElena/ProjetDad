@@ -3,8 +3,6 @@ package com.traitement;
 import java.util.List;
 
 import javax.ejb.Remote;
-import javax.persistence.EntityManager;
-
 import traitement_jpa.model.entity.Dico;
 
 @Remote

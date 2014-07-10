@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
 
 import traitement_jpa.model.entity.Dico;
 
