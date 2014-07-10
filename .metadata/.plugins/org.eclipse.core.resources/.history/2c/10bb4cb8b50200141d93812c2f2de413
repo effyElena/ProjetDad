@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
+
+    version="2.0">
+
+    <endpoint name="WebServiceImpl"
+
+        implementation="com.javacodegeeks.enterprise.ws.WebServiceImpl"
+
+        url-pattern="/sayhello" />
+        
+     <endpoint name="Reception"
+
+        implementation="com.reception.CL_WS_Reception"
+
+        url-pattern="/reception" />
+
+</endpoints>

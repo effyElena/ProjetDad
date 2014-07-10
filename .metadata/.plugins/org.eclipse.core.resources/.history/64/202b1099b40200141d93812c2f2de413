@@ -1,0 +1,11 @@
+package com.reception;
+
+public class CL_WS_Reception implements IWSReception {
+
+	@Override
+	public String Message(String texte) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

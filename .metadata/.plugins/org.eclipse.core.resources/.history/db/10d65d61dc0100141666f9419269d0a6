@@ -1,0 +1,7 @@
+package snippet;
+
+public class Snippet {
+	cannot Deploy reception_ear
+	deploy is failing=Erreur lors du déploiement : Exception while loading the app : EJB Container initialization error. Pour plus d'informations, consultez le fichier server.log.
+}
+

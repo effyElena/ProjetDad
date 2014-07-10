@@ -1,0 +1,35 @@
+package com.reception;
+
+import javax.ejb.ActivationConfigProperty;
+import javax.ejb.MessageDriven;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+
+/**
+ * Message-Driven Bean implementation class for: CL_JMS_Message
+ */
+@MessageDriven(
+		activationConfig = { @ActivationConfigProperty(
+				propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+		})
+@TransactionManagement(TransactionManagementType.BEAN)
+public class CL_JMS_Message implements MessageListener {
+
+    /**
+     * Default constructor. 
+     */
+    public CL_JMS_Message() {
+        // TODO Auto-generated constructor stub
+    }
+	
+	/**
+     * @see MessageListener#onMessage(Message)
+     */
+    public void onMessage(Message message) {
+        // TODO Auto-generated method stub
+        
+    }
+
+}

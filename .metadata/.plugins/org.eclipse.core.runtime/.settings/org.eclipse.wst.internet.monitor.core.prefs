@@ -1,0 +1,2 @@
+eclipse.preferences.version=1
+monitors=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<monitors>\r\n<monitor auto-start\="true" local-port\="29009" remote-host\="VM-RECEPTION" remote-port\="29009" timeout\="0" type-id\="HTTP"/>\r\n<monitor auto-start\="true" local-port\="29008" remote-host\="VM-TRAITEMENT" remote-port\="29009" timeout\="0" type-id\="HTTP"/>\r\n</monitors>\r\n

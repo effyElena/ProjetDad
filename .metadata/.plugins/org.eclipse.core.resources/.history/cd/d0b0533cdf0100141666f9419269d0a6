@@ -1,0 +1,22 @@
+package com.reception;
+
+//import javax.annotation.Resource;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+//import javax.jms.*;
+
+/**
+ * Session Bean implementation class CL_reception
+ */
+@Stateless
+@LocalBean
+public class CL_receptionold implements CL_receptionRemote, CL_receptionLocal {
+
+
+    public CL_receptionold() {
+//    	
+    	
+    	
+    }
+
+}

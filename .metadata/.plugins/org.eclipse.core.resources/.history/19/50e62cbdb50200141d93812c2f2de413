@@ -1,0 +1,24 @@
+
+package com.javacodegeeks.enterprise.ws;
+
+
+import javax.jws.WebService;
+
+import com.reception.CL_reception;
+
+//import com.reception.*;
+@WebService(endpointInterface = "com.javacodegeeks.enterprise.ws.WebServiceInterface")
+public class WebServiceImpl implements WebServiceInterface{
+	@Override
+	public String printMessage() {
+		return new CL_reception().Hello();
+		
+		//return "Hello from Java Code Geeks Server";
+	}
+	@Override
+    public String hello(String txt) {
+        return "Hello " + txt + " !";
+    }
+
+
+}

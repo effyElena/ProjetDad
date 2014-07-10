@@ -1,0 +1,47 @@
+package com.reception;
+
+//import javax.annotation.Resource;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+//import javax.jms.*;
+
+/**
+ * Session Bean implementation class CL_reception
+ */
+@Stateless
+@LocalBean
+public class CL_reception implements CL_receptionRemote, CL_receptionLocal {
+
+//	 @Resource(mappedName = "jms/Connection")
+//	  private static ConnectionFactory connectionFactory;
+//	  @Resource(mappedName = "jms/queue")
+//	  private static Queue queue;
+	  
+    public CL_reception() {
+//    	 MessageProducer messageProducer;
+//    	 TextMessage textMessage;
+//    	    try
+//    	    {
+//    	      Connection connection = connectionFactory.createConnection();
+//    	      Session session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+//    	      messageProducer = session.createProducer(queue);
+//    	      textMessage = session.createTextMessage();
+//
+//    	      System.out.println("j'envoi un message");
+//    	      textMessage.setText("Testing, 1, 2, 3. Can you hear me?");
+//    	      messageProducer.send(textMessage);
+//
+//
+//    	      messageProducer.close();
+//    	      session.close();
+//    	      connection.close();
+//    	    }
+//    	    catch (JMSException e)
+//    	    {
+//    	      e.printStackTrace();
+//    	    }
+    	
+    	
+    }
+
+}
