@@ -19,18 +19,24 @@ namespace Business.Job_component
             this.emFile = new CL_EM_File();
         }
 
+        public void updateFile(FILE file, int userId)
+        {
+            this.emFile.updateFile(file.file_name, file.file_email, file.file_url, file.file_code, userId);
+        }
+
         public void saveFile(FILE file, int userId)
         {
             this.emFile.insertFile(file.file_name, 0, userId);
         }
 
-        public void decrypt(FILE file){
+        private void startThread(FILE file)
+        {
             int cle = 99999;
             string content = file.content;
 
-            Parallel.For(0, cle, i =>{
-            //for (int i = 0; i < 99999; i++){
-
+            Parallel.For(0, cle, i =>
+            {
+                //for (int i = 0; i < 99999; i++){
                 String tempString = Convert.ToString(i);
                 StringBuilder tempFile = new StringBuilder();
 
@@ -47,35 +53,24 @@ namespace Business.Job_component
 
                 int id = Thread.CurrentThread.ManagedThreadId;
 
-                //appel j2ee nom, content, cle,         nom du thread,  (besoin de l'id user pour le retour du j2ee dans stop decrypt)
+                //appel j2ee nom, content, cle, nom du thread, (besoin de l'id user pour le retour du j2ee dans stop decrypt)
                 CL_CM_J2ee cmJ2ee = new CL_CM_J2ee();
                 string result = cmJ2ee.sendFileJ2ee(file.file_name, Encoding.UTF8.GetBytes(tempFile.ToString()), tempString);
 
-            //}
+                //}
             });
 
         }
 
-        public void decrypt2(string f){
-            String fi = f;
-            FileInfo info = new FileInfo(fi);
+        public void decrypt(FILE file){
+            Thread t1 = new Thread(() => startThread(file));
+            t1.Start();
 
+            //Thread t2 = new Thread(() => decrypt2(file));
+            //t2.Start();
+        }
 
-            String subdir = Path.Combine(info.DirectoryName + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(info.Name));
-            Console.WriteLine(subdir);
-            if (!System.IO.Directory.Exists(subdir))
-                System.IO.Directory.CreateDirectory(subdir);
-
-            Console.WriteLine(Path.GetFileNameWithoutExtension(info.Name) + ": " + info.Extension);
-
-            StreamReader file = new StreamReader(fi);
-            String content = file.ReadToEnd();
-            Console.WriteLine(content);
-
-            file.Close();
-
-            int cle = 99999;
-
+        public void decrypt2(FILE file){
             List<Char> printableChars = new List<char>();
             for (int i = 33; i <= 126; i++)
             {
@@ -86,105 +81,55 @@ namespace Business.Job_component
                 }
             }
 
-            int length = 3;
-            char[] tempString = new char[length];
-            char[] repertoire = new char[length];
-            Recursive(length, printableChars, repertoire, subdir, content, tempString);
-            Console.WriteLine(@"c'est finit!!!");
-            //Parallel.For(0, 4, i =>
-            //{
-        }
+            string content = file.content;
 
-        private static void Recursive(int length, List<Char> carac, char[] repertoire, string subdir, string content, char[] tempString)
-        {
-            if (length > 1)
+
+
+            foreach (char c in printableChars)
             {
-                length--;
-                foreach (char c in carac)
+                foreach (char d in printableChars)
                 {
-                    repertoire[length] = c;
-                    tempString[length] = c;
-
-                    Recursive(length, carac, repertoire, subdir, content, tempString);
-
-                    String file = "";
-                    for (int i = repertoire.Length - 1; i >= 0; i--)
+                    foreach (char e in printableChars)
                     {
-                        if (file == "")
+                        foreach (char f in printableChars)
                         {
-                            file = (Convert.ToInt32(repertoire[i])).ToString();
-                        }
-                        else
-                        {
-                            file = (Convert.ToInt32(repertoire[i])).ToString() + "," + file;
+                            Parallel.ForEach(printableChars, g =>
+                            {
+                                string cle = c.ToString() + d.ToString() + e.ToString() + f.ToString() + g.ToString();
+
+                                //for (int i = 0; i < 99999; i++){
+                                String tempString = cle;
+                                StringBuilder tempFile = new StringBuilder();
+
+                                int ind = 0;
+                                for (int j = 0; j < content.Length; j++)
+                                {
+                                    tempFile.Append(Convert.ToChar((uint)content[j] ^ (uint)tempString[ind]));
+                                    ind++;
+                                    if (ind == tempString.Length)
+                                    {
+                                        ind = 0;
+                                    }
+                                }
+
+                                int id = Thread.CurrentThread.ManagedThreadId;
+
+                                //appel j2ee nom, content, cle, nom du thread, (besoin de l'id user pour le retour du j2ee dans stop decrypt)
+                                CL_CM_J2ee cmJ2ee = new CL_CM_J2ee();
+                                string result = cmJ2ee.sendFileJ2ee(file.file_name, Encoding.UTF8.GetBytes(tempFile.ToString()), tempString);
+
+                                //}
+
+
+                            });
                         }
                     }
-
-                    StreamWriter file1 = new StreamWriter(subdir + Path.DirectorySeparatorChar + file + ".txt");
-                    StringBuilder tempFile = new StringBuilder();
-
-
-                    int ind = 0;
-                    for (int j = 0; j < content.Length; j++)
-                    {
-                        tempFile.Append(Convert.ToChar((uint)content[j] ^ (uint)tempString[ind]));
-                        ind++;
-                        if (ind == tempString.Length)
-                        {
-                            ind = 0;
-                        }
-                    }
-
-                    file1.Write(tempFile);
-                    file1.Close();
-
-                }
-
-                Array.Resize(ref repertoire, repertoire.Length - 1);
-                Array.Resize(ref tempString, tempString.Length - 1);
-                Recursive(length, carac, repertoire, subdir, content, tempString);
-
-            }
-            else if (length == 1)
-            {
-                length--;
-                foreach (char c in carac)
-                {
-                    repertoire[length] = c;
-                    tempString[length] = c;
-
-                    String file = "";
-                    for (int i = repertoire.Length - 1; i >= 0; i--)
-                    {
-                        if (file == "")
-                        {
-                            file = (Convert.ToInt32(repertoire[i])).ToString();
-                        }
-                        else
-                        {
-                            file = (Convert.ToInt32(repertoire[i])).ToString() + "," + file;
-                        }
-                    }
-
-                    StreamWriter file1 = new StreamWriter(subdir + Path.DirectorySeparatorChar + file + ".txt");
-                    StringBuilder tempFile = new StringBuilder();
-
-
-                    int ind = 0;
-                    for (int j = 0; j < content.Length; j++)
-                    {
-                        tempFile.Append(Convert.ToChar((uint)content[j] ^ (uint)tempString[ind]));
-                        ind++;
-                        if (ind == tempString.Length)
-                        {
-                            ind = 0;
-                        }
-                    }
-
-                    file1.Write(tempFile);
-                    file1.Close();
                 }
             }
+
+
+
+
 
 
         }

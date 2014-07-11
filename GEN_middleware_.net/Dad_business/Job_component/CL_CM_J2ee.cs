@@ -25,7 +25,6 @@ namespace Business.Job_component
             objectJee.Close();
             return result;
             
-            
         }
 
         private void getEndPoint()

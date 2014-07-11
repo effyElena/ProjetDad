@@ -13,11 +13,46 @@ namespace Business.Mapping
         private int type;
         private int id;
         private List<CL_EM_File> listFileRun;
+
+        
         private CL_CAD cad;
 
         public CL_EM_User()
         {
             this.cad = new CL_CAD();
+        }
+
+        internal List<CL_EM_File> getHistoFileByUser(int userId)
+        {
+            List<CL_EM_File> list = new List<CL_EM_File>();
+            object[][] data = this.cad.executeSql("SELECT [File_id], [File_name], [File_email], [File_code], [File_url], [File_date], [State] FROM [File] WHERE AppUser_id = '" + userId + "' AND [State] != 0 ;");
+
+            if (data[0] != null)
+            {
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (data[i] != null)
+                    {
+                        CL_EM_File emFile = new CL_EM_File();
+                        emFile.File_Id = (int)data[i][0];
+                        emFile.File_name = (string)data[i][1];
+                        if ((int)data[i][6] != 0)
+                        {
+                            emFile.File_email = (string)data[i][2];
+                            emFile.File_code = (string)data[i][3];
+                            emFile.File_url = (string)data[i][4];
+                            emFile.File_date = (DateTime)data[i][5];
+                        }
+                        emFile.State = (int)data[i][6];
+                        list.Add(emFile);
+                    }
+
+                }
+            }
+
+
+
+            return list;
         }
 
         internal CL_EM_File getFileByUser(string name, int userId)
@@ -112,10 +147,12 @@ namespace Business.Mapping
             set { id = value; }
         }
 
+
         internal List<CL_EM_File> ListFileRun
         {
             get { return listFileRun; }
             set { listFileRun = value; }
         }
+
     }
 }

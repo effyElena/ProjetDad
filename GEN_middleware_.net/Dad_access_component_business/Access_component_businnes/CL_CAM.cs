@@ -51,10 +51,13 @@ namespace Access_component_business
             }
 
             System.Diagnostics.Trace.WriteLine(DateTime.Now +" : "+this.msg.tokenApll+" : "+this.msg.operationName+" : "+this.msg.tokenUser);
-            CL_CM_Pdf cmPdf = new CL_CM_Pdf();
-            cmPdf.createPdf();
 
-            //this.msg = this.objetCW.exec(msg);
+            //CL_CM_Pdf cmPdf = new CL_CM_Pdf();
+            //cmPdf.createPdf("F2.txt", "Salut à tous !!!", "66897", DateTime.Now, (float)60.002);
+
+
+
+            this.msg = this.objetCW.exec(msg);
 
             return this.msg;
         }

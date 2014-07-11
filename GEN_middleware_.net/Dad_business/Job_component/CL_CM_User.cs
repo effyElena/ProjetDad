@@ -52,10 +52,31 @@ namespace Business.Job_component
             file.file_code = emFile.File_code;
             file.state = emFile.State;
             file.file_date = emFile.File_date;
+            file.file_url = emFile.File_url;
 
             
 
             return file;
+        }
+
+        internal List<FILE> getHistoFile(int userId)
+        {
+            List<CL_EM_File> listHisto = this.emUser.getHistoFileByUser(userId);
+            List<FILE> list = new List<FILE>();
+
+            foreach(CL_EM_File emFile in listHisto){
+                FILE file = new FILE();
+                file.file_name = emFile.File_name;
+                file.file_email = emFile.File_email;
+                file.file_code = emFile.File_code;
+                file.state = emFile.State;
+                file.file_date = emFile.File_date;
+                file.file_url = emFile.File_url;
+                list.Add(file);
+            }
+
+            return list;
+
         }
     }
 }

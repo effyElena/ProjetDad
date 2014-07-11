@@ -19,7 +19,7 @@ namespace Business.Mapping
 
         public CL_CAD()
         {
-            this.bddServer = "10.33.126.116";
+            this.bddServer = "VM-BDD";
             //this.bddServer = "192.168.1.78";
             this.bddBase = "ProjetDAD";
             this.bddLogin = "root";

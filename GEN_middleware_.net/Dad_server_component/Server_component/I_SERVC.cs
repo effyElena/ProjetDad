@@ -54,6 +54,8 @@ namespace Dad_server_component.Server_component
         public string tokenUser { get; set; }
         [DataMember]
         public int userId { get; set; }
+        [DataMember]
+        public string[] dataJ2ee { get; set; }
         
     }
 

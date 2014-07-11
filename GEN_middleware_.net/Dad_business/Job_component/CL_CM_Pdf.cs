@@ -16,16 +16,23 @@ namespace Business.Job_component
 
         }
 
-        public void createPdf()
+        public void createPdf(string name, string content, string key, DateTime date, string stat, string email)
         {
             Document nouveauDocument = new Document(); 
  
             try 
             { 
             PdfWriter.GetInstance (nouveauDocument, new 
-            FileStream("C:\\wamp\\www\\rapport-pdf\\fichier.pdf", FileMode.Create)); 
-              nouveauDocument.Open(); 
-              nouveauDocument.Add(new Phrase("hello world")); 
+            FileStream("C:\\wamp\\www\\rapport-pdf\\"+name+".pdf", FileMode.Create)); 
+              nouveauDocument.Open();
+
+              nouveauDocument.Add(new Paragraph("Document : " + name + " du : " + date));
+              nouveauDocument.Add(new Paragraph(" "));
+              nouveauDocument.Add(new Paragraph("La clé utilisé est : " + key));
+              nouveauDocument.Add(new Paragraph("Nous avons détécté : " + stat + " % de français"));
+              nouveauDocument.Add(new Paragraph("L'email secret : " + email));
+              nouveauDocument.Add(new Paragraph(" "));
+              nouveauDocument.Add(new Paragraph(content));
             } 
             catch (DocumentException de) 
             { 

@@ -9,7 +9,7 @@ namespace Business.Job_component
 {
     public class CL_CM_Mail
     {
-        public async void sendMail()
+        public async void sendMail(string url, string name, DateTime date, string content)
         {
             using (SmtpClient smtpClient = new SmtpClient("smtp.dbcorp.fr"))
             {

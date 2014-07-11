@@ -20,8 +20,11 @@ namespace Business.Workflow_controller.User
 
             for (int i = 0; i < this.msg.data[0].Length; i++)
             {
-                if(this.msg.data[0][i]!=null){
-                    this.msg.data[0][i] = this.cmUser.refresh((FILE)this.msg.data[0][i], this.msg.userId);
+                if(this.msg.data[0][i]!=null ){
+                    FILE file = (FILE)this.msg.data[0][i];
+                    if(file.state != 4){
+                        this.msg.data[0][i] = this.cmUser.refresh(file, this.msg.userId);
+                    }
                 }
             }
 

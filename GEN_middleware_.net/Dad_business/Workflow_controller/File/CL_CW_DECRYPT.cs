@@ -20,16 +20,14 @@ namespace Business.Workflow_controller.File
 
             for (int i = 0; i < this.msg.data[0].Length; i++)
             {
-                // thread cmfile
                 this.cmFile.saveFile((FILE)this.msg.data[0][i], this.msg.userId);
-                //this.cmFile.decrypt((FILE)this.msg.data[0][i]);
+                this.cmFile.decrypt((FILE)this.msg.data[0][i]);
             }
-            
-            // select where file = file
 
-            // return msg with new data
-
+            this.msg.statut_op = true;
             return this.msg;
         }
+
+
     }
 }
